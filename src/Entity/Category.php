@@ -20,7 +20,7 @@ class Category
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $name;
 
@@ -39,6 +39,11 @@ class Category
      */
     private $counterparties;
 
+    /**
+     * @ORM\Column(type="integer", options={"default" : 0})
+     */
+    private $parentId;
+
     public function __construct()
     {
         $this->counterparties = new ArrayCollection();
@@ -49,7 +54,7 @@ class Category
         return $this->id;
     }
 
-    public function getName(): ?int
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -111,6 +116,18 @@ class Category
                 $counterparty->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getParentId(): ?int
+    {
+        return $this->parentId;
+    }
+
+    public function setParentId(int $parentId): self
+    {
+        $this->parentId = $parentId;
 
         return $this;
     }

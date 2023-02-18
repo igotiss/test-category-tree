@@ -47,6 +47,38 @@ class CategoryRepository extends ServiceEntityRepository
         }
     }
 
+    public function findMainTrueCategories()
+    {
+        $categoriesIsActive = 1;
+        $categoriesIsRoot = 0;
+        return $this->createQueryBuilder('c')
+            ->select('c.id, c.name' )
+            ->where('c.status = :active' )
+            ->setParameter('active', $categoriesIsActive)
+            ->andWhere('c.parentId = :isRoot')
+            ->setParameter('isRoot', $categoriesIsRoot)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findAllChildCategory($parentId)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c.id, c.name' )
+            ->andWhere('c.parentId = :val')
+            ->setParameter('val', $parentId)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+
+
+
+
+
+
     // /**
     //  * @return Category[] Returns an array of Category objects
     //  */

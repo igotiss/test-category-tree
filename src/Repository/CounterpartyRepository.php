@@ -47,22 +47,22 @@ class CounterpartyRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return Counterparty[] Returns an array of Counterparty objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Counterparty[] Returns an array of Counterparty objects
+     */
+
+    public function findByCategory($value)
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
+            ->select('c.id, c.name, c.description')
+            ->andWhere('c.category = :val')
             ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('c.name', 'ASC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Counterparty
